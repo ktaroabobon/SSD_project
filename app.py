@@ -1,6 +1,6 @@
 import flask
 
-from src.controlers.controler import SSDPredictModel
+from controlers.controler import SSDPredictModel
 
 app = flask.Flask(__name__)
 
