@@ -8,4 +8,6 @@ weight_file = config['torch']['weight']
 
 confidence_level = float(config['predict']['confidence_level'])
 
+logfile = config['project']['logfile']
+
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
