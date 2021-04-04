@@ -47,3 +47,31 @@ breed_dict = {
     "Sphynx": "スフィンクス", "staffordshire_bull_terrier": "スタッフォードシャー・ブル・テリア",
     "wheaten_terrier": "ソフトコーテッド・ウィートン・テリア", "yorkshire_terrier": "ヨークシャー・テリア",
 }
+
+
+def bbox_text_size(img_height, img_width: int) -> int:
+    img_size = img_height * img_width
+    text_size = 10
+
+    if 300 * 300 < img_size and img_size <= 600 * 600:
+        text_size = 20
+    elif 600 * 600 < img_size and img_size <= 780 * 780:
+        text_size = 30
+    elif 780 * 780 < img_size:
+        text_size = 36
+
+    return text_size
+
+
+def bbox_rectangle_width(img_height, img_width: int) -> int:
+    img_size = img_height * img_width
+    rectangle_width = 1
+
+    if 300 * 300 < img_size and img_size <= 600 * 600:
+        rectangle_width = 5
+    elif 600 * 600 < img_size and img_size <= 780 * 780:
+        rectangle_width = 8
+    elif 780 * 780 < img_size:
+        rectangle_width = 10
+
+    return rectangle_width

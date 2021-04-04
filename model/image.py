@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from model.ssd import DataTransform
+from utils import utils
 
 
 class SsdImage(object):
@@ -45,12 +46,12 @@ class SsdImage(object):
         物体検出の予測結果を画像で表示させる関数。
         """
         d = ImageDraw.Draw(self.__origin)
-        fnt = ImageFont.truetype(font=fnt)
+        fnt = ImageFont.truetype(font=fnt, size=utils.bbox_text_size(self.height, self.width))
         # BBox分のループ
         for bbox in self.bbox_list:
             bbox.add_label_data(d=d, fnt=fnt)
 
-            d.rectangle(bbox.coordinates, outline=bbox.color)
+            d.rectangle(bbox.coordinates, outline=bbox.color, width=utils.bbox_rectangle_width(self.height, self.width))
             d.rectangle([bbox.label["coordinate"], tuple(np.array(bbox.label["coordinate"]) + bbox.label["size"])],
                         fill=bbox.color)
             d.text(xy=bbox.label["coordinate"], text=bbox.label["display_text"], font=fnt)
@@ -105,6 +106,6 @@ class BBox(object):
         label_size = d.textsize(self.__label["display_text"], font=fnt)
         self.__label["size"] = label_size
         self.__label["coordinate"] = (
-            self.__coordinates[0] - label_size[0] / 4,
-            self.__coordinates[1] - label_size[1] / 2
+            self.__coordinates[0],
+            self.__coordinates[1]
         )
