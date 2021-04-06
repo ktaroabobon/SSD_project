@@ -1,8 +1,3 @@
-"""
-第2章SSDで実装した内容をまとめたファイル
-"""
-
-# パッケージのimport
 import torch.nn as nn
 import torch.nn.init as init
 import torch.nn.functional as F
@@ -978,8 +973,7 @@ class MultiBoxLoss(nn.Module):
         neg_idx_mask = neg_mask.unsqueeze(2).expand_as(conf_data)
 
         # conf_dataからposとnegだけを取り出してconf_hnmにする。形はtorch.Size([num_pos+num_neg, 21])
-        conf_hnm = conf_data[(pos_idx_mask + neg_idx_mask).gt(0)
-        ].view(-1, num_classes)
+        conf_hnm = conf_data[(pos_idx_mask + neg_idx_mask).gt(0)].view(-1, num_classes)
         # （注釈）gtは greater than (>)の略称。これでmaskが1のindexを取り出す。
         # pos_idx_mask+neg_idx_maskは足し算だが、indexへのmaskをまとめているだけである。
         # つまり、posであろうがnegであろうが、マスクが1のものを足し算で一つのリストにし、それをgtで取得
@@ -992,8 +986,8 @@ class MultiBoxLoss(nn.Module):
         loss_c = F.cross_entropy(conf_hnm, conf_t_label_hnm, reduction='sum')
 
         # 物体を発見したBBoxの数N（全ミニバッチの合計）で損失を割り算
-        N = num_pos.sum()
-        loss_l /= N
-        loss_c /= N
+        n = num_pos.sum()
+        loss_l /= n
+        loss_c /= n
 
         return loss_l, loss_c
