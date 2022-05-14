@@ -1,0 +1,31 @@
+version: '3.8'
+# 使用するDockerEngineリソースに適応するバージョンを指定する。
+
+services:
+  cat_dog_detection:
+    container_name: detection
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    tty: true
+    volumes:
+      - .:/code/
+      - ${PIP_CACHE_DIR_WORKER:-cache-detection}:/root/.cache
+
+  jupyterlab-ds:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    volumes:
+      - ".:/home/work"
+      - ".jupyter:/root/.jupyter"
+    ports:
+      - "9999:9999"
+    tty: true
+    command: jupyter lab --ip=0.0.0.0 --port=9999 --allow-root --no-browser
+
+volumes:
+  cache-detection:
