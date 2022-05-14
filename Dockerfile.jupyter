@@ -1,0 +1,21 @@
+FROM python:3.8
+
+#　pdfを扱うためにpopplerをインストール
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install -y libgl1-mesa-dev poppler-utils poppler-data
+
+# install python library
+RUN pip3 install --upgrade pip && \
+    pip3 install --no-cache-dir poetry &&  \
+    rm -rf ~/.cache/pip
+
+# RUN poetry config virtualenvs.create false \
+#     && poetry install
+
+# install jupyterlab & extentions
+RUN pip3 install --upgrade --no-cache-dir \
+    'jupyterlab~=3.0' \
+    'notebook~=5.7.4'
+
+WORKDIR /home/work/
