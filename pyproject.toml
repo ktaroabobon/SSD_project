@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ssd_project"
+version = "0.1.0"
+description = ""
+authors = ["keitarowatanabe <ktaroabobon@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "^1.22.3"
+torch = "1.8.1"
+opencv-python = "^4.5.5"
+Pillow = "^9.1.0"
+matplotlib = "^3.5.2"
+torchaudio = "0.8.1"
+
+[tool.poetry.dev-dependencies]
+torchvision = "0.9.1"
+Flask = "^2.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

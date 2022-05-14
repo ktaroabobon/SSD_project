@@ -13,7 +13,7 @@ services:
     tty: true
     volumes:
       - .:/code/
-      - ${PIP_CACHE_DIR_WORKER:-cache-detection}:/root/.cache
+      - ${PIP_CACHE_DIR_DETECTION:-cache-detection}:/root/.cache
 
   jupyterlab-ds:
     build:
